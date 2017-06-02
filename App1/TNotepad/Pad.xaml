@@ -9,9 +9,13 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="White">
-        <RichEditBox x:Name="textBox" TextChanged="textBox_TextChanged" Background="White" BorderBrush="#FC000000" FocusVisualSecondaryBrush="White" BorderThickness="1" RequestedTheme="Light" KeyDown="textBox_KeyDown" KeyUp="textBox_KeyUp">
-            
-        </RichEditBox>
+    <Grid>
+        <Grid Background="White">
+            <RichEditBox x:Name="textBox" TextChanged="textBox_TextChanged" Background="White" BorderBrush="#FC000000" FocusVisualSecondaryBrush="White" BorderThickness="1" RequestedTheme="Light" KeyDown="textBox_KeyDown" KeyUp="textBox_KeyUp" Margin="0,0,0,15" SelectionChanged="textBox_SelectionChanged"/>
+            <Grid x:Name="statusBar" Background="{ThemeResource AppBarBackground}" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                <TextBlock x:Name="label" Text="Ln 0, Col 0" FontSize="12"/>
+            </Grid>
+        </Grid>
+        
     </Grid>
 </UserControl>

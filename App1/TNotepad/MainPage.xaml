@@ -12,7 +12,7 @@
         <SplitView x:Name="pane" DisplayMode="CompactInline" FocusVisualPrimaryBrush="Black" PaneBackground="{x:Null}" Background="{ThemeResource AppBarBackground}">
             <SplitView.Pane>
                 <ScrollViewer Background="{ThemeResource AccentButtonBackgroundDisabled}">
-                    <StackPanel Height="641" VerticalAlignment="Top">
+                    <StackPanel VerticalAlignment="Top">
                         <Button x:Name="Hamburger" Height="40" Click="Hamburger_Click" HorizontalAlignment="Stretch" Background="{x:Null}">
                             <Grid Margin="-160,-24">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
@@ -26,6 +26,7 @@
                                 <TextBlock FontSize="15" HorizontalAlignment="Left" Width="87" VerticalAlignment="Center" Margin="124,12,0,10">New File</TextBlock>
                             </Grid>
                         </Button>
+                        <Canvas Height="1" Background="{ThemeResource AppBarBackground}"/>
                         <Button x:Name="OpenBut" Height="40" HorizontalAlignment="Stretch" Click="OpenBut_Click" Background="{x:Null}">
                             <Grid Margin="-160,-24">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
@@ -50,6 +51,7 @@
                                 <TextBlock FontSize="15" HorizontalAlignment="Left" Width="88" VerticalAlignment="Center" Margin="123,12,0,10">Close File</TextBlock>
                             </Grid>
                         </Button>
+                        <Canvas Height="1" Background="{ThemeResource AppBarBackground}"/>
                         <Button x:Name="SettingsBut" Height="48" HorizontalAlignment="Stretch" Click="SettingsBut_Click" Background="{x:Null}" >
                             <Grid Margin="-160,-24">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
@@ -57,6 +59,7 @@
                             </Grid>
                         </Button>
                         <Grid Height="2"/>
+                        <Canvas Height="1" Background="{ThemeResource AppBarBackground}"/>
                         <Button x:Name="UndoBut" Height="40" HorizontalAlignment="Stretch" Click="UndoBut_Click" Background="{x:Null}">
                             <Grid Margin="-160,-24">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
@@ -93,12 +96,24 @@
                                 <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="143,12,0,10">Paste</TextBlock>
                             </Grid>
                         </Button>
+                        <Canvas Height="1" Background="{ThemeResource AppBarBackground}"/>
                         <Button x:Name="CalendarBut" Height="40" HorizontalAlignment="Stretch" Click="CalendarBut_Click" Background="{x:Null}">
                             <Grid Margin="-160,-24">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
                                 <TextBlock FontSize="15" HorizontalAlignment="Left" Width="103" VerticalAlignment="Center" Margin="120,12,0,10">Insert Date</TextBlock>
                             </Grid>
                         </Button>
+                        <Canvas Height="10"/>
+                        <Grid Margin="0,0">
+                            <Button x:Name="searchNext"  FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,10" Background="{x:Null}"  Click="searchNext_Click">&#xE71E;</Button>
+                            <TextBox x:Name="searchBox" Margin="48,0,50,0" Height="20" KeyDown="TextBox_KeyDown"/>
+                            <Button x:Name="searchPrev" FontSize="24" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,12,0,10" Background="{x:Null}" Click="searchPrev_Click">&#xE70E;</Button>
+                        </Grid>
+                        <Grid Margin="0,0">
+                            <Button x:Name="Replace" Click="Replace_Click" FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,10" Background="{x:Null}">&#xE149;</Button>
+                            <TextBox x:Name="replaceBox"  Height="20" Margin="48,0,50,0" KeyDown="TextBox_KeyDown_1"/>
+                            <Button x:Name="ReplaceAll" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,12,5,10" Background="{x:Null}" Click="ReplaceAll_Click">All</Button>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </SplitView.Pane>
@@ -109,22 +124,32 @@
                             <ToggleSwitch x:Name="toggleSwitch" OffContent="StatusBar Off" OnContent="StatusBar On" HorizontalAlignment="Stretch" Margin="0,0,0,0" Toggled="toggleSwitch_Toggled"/>
                             <TextBlock TextWrapping="Wrap" Text="Font Settings" TextAlignment="Center"/>
                             <Canvas Height="39">
-                                <ComboBox x:Name="fontBox" Canvas.Left="83" Canvas.Top="4" Width="232"/>
+                                <ComboBox x:Name="fontBox" Canvas.Left="103" Canvas.Top="4" Width="212" DropDownClosed="fontBox_DropDownClosed"/>
                                 <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Font" Canvas.Top="9"/>
                             </Canvas>
                             <Canvas Height="39">
-                                <ComboBox x:Name="encodingBox" Canvas.Left="83" Canvas.Top="4" Width="232" SelectedIndex="0" DropDownClosed="encodingBox_DropDownClosed">
+                                <TextBox x:Name="sizeBox" Canvas.Left="103" Canvas.Top="4" Width="212" TextChanged="sizeBox_TextChanged" LostFocus="sizeBox_LostFocus" KeyDown="sizeBox_KeyDown"/>
+                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Font Size" Canvas.Top="9"/>
+                            </Canvas>
+                            <ToggleSwitch Margin="8,0,0,0" OffContent="Bold" OnContent="Bold" x:Name="boldBox" Toggled="boldBox_Checked"/>
+                            <ToggleSwitch Margin="8,0,0,0" OffContent="Italic" OnContent="Italic" x:Name="italicBox" Toggled="italicBox_Checked"/>
+                            <Canvas Height="39">
+                                <ComboBox x:Name="encodingBox" Canvas.Left="103" Canvas.Top="4" Width="212" SelectedIndex="0" DropDownClosed="encodingBox_DropDownClosed">
                                     <ComboBoxItem Content="ASCII"/>
                                     <ComboBoxItem Content="Unicode"/>
                                     <ComboBoxItem Content="Unicode big endian"/>
                                     <ComboBoxItem Content="UTF-8"/>
                                     <ComboBoxItem Content="Custom"/>
                                 </ComboBox>
-                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Eńcoding" Canvas.Top="9"/>
+                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Encoding" Canvas.Top="9"/>
                             </Canvas>
                             <Canvas x:Name="codePageCanvas" Height="39" Visibility="Collapsed">
-                                <TextBox x:Name="codePageSetBox" Canvas.Left="83" Canvas.Top="4" Width="232"/>
+                                <TextBox x:Name="codePageSetBox" Canvas.Left="103" Canvas.Top="4" Width="212"/>
                                 <Button Height="39" Canvas.Left="14" Content="SAVE" Click="Button_Click"/>
+                            </Canvas>
+                            <Canvas Height="39">
+                                <TextBox x:Name="lineBox" Canvas.Left="103" Canvas.Top="4" Width="212" LostFocus="lineBox_LostFocus"/>
+                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Line Endings" Canvas.Top="9"/>
                             </Canvas>
                         </StackPanel>
                     </SplitView.Pane>

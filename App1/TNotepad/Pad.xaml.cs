@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,6 +33,19 @@ namespace TNotepad
         public Pad()
         {
             this.InitializeComponent();
+            if (MainPage.Instance.status) ShowStatus();
+            else HideStatus();
+        }
+
+        public void ShowStatus()
+        {
+            textBox.Margin = new Thickness(0, 0, 0, 15);
+            statusBar.Visibility = Visibility.Visible;
+        }
+        public void HideStatus()
+        {
+            textBox.Margin = new Thickness(0, 0, 0, 0);
+            statusBar.Visibility = Visibility.Collapsed;
         }
 
         public async System.Threading.Tasks.Task OpenFileAct(StorageFile file)
@@ -54,6 +68,97 @@ namespace TNotepad
                 await dialog.ShowAsync();
             }
         }
+
+        public void SetFont()
+        {
+            textBox.FontFamily = new FontFamily(MainPage.Instance.font);
+            textBox.FontStyle = Windows.UI.Text.FontStyle.Oblique;
+            if (MainPage.Instance.fontBold)
+                textBox.FontWeight = FontWeights.Bold;
+            else
+                textBox.FontWeight = FontWeights.Normal;
+            if (MainPage.Instance.fontItalic)
+                textBox.FontStyle = FontStyle.Italic;
+            else
+                textBox.FontStyle = FontStyle.Normal;
+
+            textBox.FontSize = MainPage.Instance.fontSize;
+
+        }
+
+
+        public void SearchNext(string search)
+        {
+            int e = textBox.Document.Selection.EndPosition;
+            textBox.Document.GetText(TextGetOptions.None, out string txt);
+            txt = txt.Substring(e);
+            int index = txt.IndexOf(search);
+            if (index >= 0)
+            {
+                e = e + index;
+                textBox.Document.Selection.StartPosition = e;
+                textBox.Document.Selection.EndPosition = e + search.Length;
+                this.Focus(FocusState.Programmatic);
+            }
+        }
+
+        public void SearchPrev(string search)
+        {
+            int e = textBox.Document.Selection.EndPosition;
+            textBox.Document.GetText(TextGetOptions.None, out string txt);
+            txt = txt.Substring(0,e);
+            int index = txt.LastIndexOf(search);
+            if (index >= 0)
+            {
+                e = index;
+                textBox.Document.Selection.StartPosition = e;
+                textBox.Document.Selection.EndPosition = e + search.Length;
+                this.Focus(FocusState.Programmatic);
+            }
+        }
+
+        public void Replace(string search, string replace)
+        {
+            int e = textBox.Document.Selection.EndPosition;
+            textBox.Document.GetText(TextGetOptions.None, out string txt);
+            txt = txt.Substring(e);
+            int index = txt.IndexOf(search);
+            if (index >= 0)
+            {
+                e = e + index;
+                textBox.Document.Selection.StartPosition = e;
+                textBox.Document.Selection.EndPosition = e + search.Length;
+                textBox.Document.Selection.Text = replace;
+                this.Focus(FocusState.Programmatic);
+            }
+        }
+
+        public void ReplaceAll(string search, string replace)
+        {
+            int e = 0;
+            textBox.Document.GetText(TextGetOptions.None, out string txt);
+            txt = txt.Substring(e);
+            int index = txt.IndexOf(search);
+            while (index >= 0)
+            {
+                e = e + index;
+                textBox.Document.Selection.StartPosition = e;
+                textBox.Document.Selection.EndPosition = e + search.Length;
+                textBox.Document.Selection.Text = replace;
+                txt = txt.Substring(index + search.Length);
+                index = txt.IndexOf(search);
+                e += search.Length;
+            }
+            this.Focus(FocusState.Programmatic);
+        }
+
+
+
+
+
+
+
+
 
         public async System.Threading.Tasks.Task OpenFile()
         {
@@ -252,13 +357,27 @@ namespace TNotepad
 
         private async void WriteFile(StorageFile file, string text)
         {
+           
             try
             {
+                text = text.Replace("\\", "\\\\");
+                text = text.Replace("\r", MainPage.Instance.lineBreak);
+                text = System.Text.RegularExpressions.Regex.Unescape(text);
+                byte[] data = null;
+
+                switch (MainPage.Instance.encoding)
+                {
+                    case 0: data = System.Text.Encoding.ASCII.GetBytes(text); break;
+                    case 1: data = System.Text.Encoding.Unicode.GetBytes(text); break;
+                    case 2: data = System.Text.Encoding.BigEndianUnicode.GetBytes(text); break;
+                    case 3: data = System.Text.Encoding.UTF8.GetBytes(text); break;
+                    case 4: data = System.Text.Encoding.GetEncoding(MainPage.Instance.codePage).GetBytes(text); break;
+                }
                 Windows.Storage.Streams.IRandomAccessStream str = await file.OpenAsync(FileAccessMode.ReadWrite);
                 Windows.Storage.Streams.IOutputStream ostr = str.GetOutputStreamAt(0);
                 Windows.Storage.Streams.DataWriter writer = new Windows.Storage.Streams.DataWriter(ostr);
                 //await reader.LoadAsync((uint)str.Size);
-                writer.WriteString(text);
+                writer.WriteBytes(data);
                 //text = reader.ReadString((uint)str.Size);
                 await writer.StoreAsync();
                 writer.DetachStream();
@@ -286,7 +405,6 @@ namespace TNotepad
                 case Windows.System.VirtualKey.F5: InsertDate(); e.Handled = true; break;
                 case Windows.System.VirtualKey.Control: controlDown = true; break;
             }
-            if (controlDown) e.Handled = true;
         }
 
         private void textBox_KeyUp(object sender, KeyRoutedEventArgs e)
@@ -300,7 +418,16 @@ namespace TNotepad
                     case Windows.System.VirtualKey.O: OpenFile(); break;
                 }
             }
-            if (controlDown) e.Handled = true;
+        }
+
+        private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            int index = textBox.Document.Selection.EndPosition;
+            textBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
+            txt = txt.Substring(0,txt.Length-1);
+            int lines = txt.Count(t => t == '\r')+1;
+            int col = index - txt.LastIndexOf('\r');
+            label.Text = $"Ln: {lines}, Col: {col}";
         }
     }
 }
