@@ -1,0 +1,1 @@
+Notepad T' is simple plain text editor able to edit any file in your computer simple and fast. It's design to look like more modern Windows application.

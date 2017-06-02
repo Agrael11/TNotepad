@@ -1,0 +1,143 @@
+﻿<Page
+    x:Class="TNotepad.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TNotepad"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded"
+    >
+
+    <Grid>
+        <SplitView x:Name="pane" DisplayMode="CompactInline" FocusVisualPrimaryBrush="Black" PaneBackground="{x:Null}" Background="{ThemeResource AppBarBackground}">
+            <SplitView.Pane>
+                <ScrollViewer Background="{ThemeResource AccentButtonBackgroundDisabled}">
+                    <StackPanel Height="641" VerticalAlignment="Top">
+                        <Button x:Name="Hamburger" Height="40" Click="Hamburger_Click" HorizontalAlignment="Stretch" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="98" VerticalAlignment="Center" Margin="115,12,0,10">Show/Hide</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Grid Height="2"/>
+                        <Button x:Name="NewBut" Height="40" HorizontalAlignment="Stretch" Click="NewBut_Click" Background="{x:Null}" AutomationProperties.AcceleratorKey="N">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="87" VerticalAlignment="Center" Margin="124,12,0,10">New File</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="OpenBut" Height="40" HorizontalAlignment="Stretch" Click="OpenBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="93" VerticalAlignment="Center" Margin="120,12,0,10" AutomationProperties.AcceleratorKey="O">Open File</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="SaveBut" Height="40" HorizontalAlignment="Stretch" Click="SaveBut_Click" Background="{x:Null}" AutomationProperties.AcceleratorKey="CTRL+S">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="85" VerticalAlignment="Center" Margin="126,12,0,10">Save File</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="SaveAsBut" Height="40" HorizontalAlignment="Stretch" Click="SaveAsBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,11,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="85" VerticalAlignment="Center" Margin="126,12,0,10">Save As...</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="CloseBut" Height="40" HorizontalAlignment="Stretch" Click="CloseBut_Click" Background="{x:Null}" AutomationProperties.AcceleratorKey="W">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="88" VerticalAlignment="Center" Margin="123,12,0,10">Close File</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="SettingsBut" Height="48" HorizontalAlignment="Stretch" Click="SettingsBut_Click" Background="{x:Null}" >
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="129,12,0,10">Settings</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Grid Height="2"/>
+                        <Button x:Name="UndoBut" Height="40" HorizontalAlignment="Stretch" Click="UndoBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="141,12,0,10">Undo</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="RedoBut" Height="40" HorizontalAlignment="Stretch" Click="RedoBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="142,12,0,10">Redo</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="SelAllBut" Height="40" HorizontalAlignment="Stretch" Click="SelAllBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="128,12,0,10">Select All</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="CopyBut" Height="40" HorizontalAlignment="Stretch" Click="CopyBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="143,12,0,10">Copy</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="CutBut" Height="40" HorizontalAlignment="Stretch" Click="CutBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="150,12,0,10">Cut</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="PasteBut" Height="40" HorizontalAlignment="Stretch" Click="PasteBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="81" VerticalAlignment="Center" Margin="143,12,0,10">Paste</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="CalendarBut" Height="40" HorizontalAlignment="Stretch" Click="CalendarBut_Click" Background="{x:Null}">
+                            <Grid Margin="-160,-24">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="24" HorizontalAlignment="Left" Width="31" VerticalAlignment="Center" Margin="9,10,0,10"></TextBlock>
+                                <TextBlock FontSize="15" HorizontalAlignment="Left" Width="103" VerticalAlignment="Center" Margin="120,12,0,10">Insert Date</TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </SplitView.Pane>
+            <Grid>
+                <SplitView x:Name="settingsPane" PanePlacement="Right">
+                    <SplitView.Pane>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="toggleSwitch" OffContent="StatusBar Off" OnContent="StatusBar On" HorizontalAlignment="Stretch" Margin="0,0,0,0" Toggled="toggleSwitch_Toggled"/>
+                            <TextBlock TextWrapping="Wrap" Text="Font Settings" TextAlignment="Center"/>
+                            <Canvas Height="39">
+                                <ComboBox x:Name="fontBox" Canvas.Left="83" Canvas.Top="4" Width="232"/>
+                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Font" Canvas.Top="9"/>
+                            </Canvas>
+                            <Canvas Height="39">
+                                <ComboBox x:Name="encodingBox" Canvas.Left="83" Canvas.Top="4" Width="232" SelectedIndex="0" DropDownClosed="encodingBox_DropDownClosed">
+                                    <ComboBoxItem Content="ASCII"/>
+                                    <ComboBoxItem Content="Unicode"/>
+                                    <ComboBoxItem Content="Unicode big endian"/>
+                                    <ComboBoxItem Content="UTF-8"/>
+                                    <ComboBoxItem Content="Custom"/>
+                                </ComboBox>
+                                <TextBlock Canvas.Left="8" TextWrapping="Wrap" Text="Eńcoding" Canvas.Top="9"/>
+                            </Canvas>
+                            <Canvas x:Name="codePageCanvas" Height="39" Visibility="Collapsed">
+                                <TextBox x:Name="codePageSetBox" Canvas.Left="83" Canvas.Top="4" Width="232"/>
+                                <Button Height="39" Canvas.Left="14" Content="SAVE" Click="Button_Click"/>
+                            </Canvas>
+                        </StackPanel>
+                    </SplitView.Pane>
+                    <Pivot x:Name="pivot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <PivotItem>
+                            <PivotItem.Header>
+                                <TextBlock Text="Unnamed File" FontSize="18"/>
+                            </PivotItem.Header>
+                            <local:Pad/>
+                        </PivotItem>
+                    </Pivot>
+                </SplitView>
+            </Grid>
+        </SplitView>
+    </Grid>
+</Page>

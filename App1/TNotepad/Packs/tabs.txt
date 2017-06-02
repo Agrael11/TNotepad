@@ -1,0 +1,1 @@
+While it tries to use only simplest functions for coping and pasting, it gives you ability to open more documents at once and easily switch between them.

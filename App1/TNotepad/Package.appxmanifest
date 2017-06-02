@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="50930OliverNeuschl.NotepadT" Publisher="CN=06493AF1-EF85-40D0-A34C-E4902E8D2260" Version="1.4.12.0" />
+  <mp:PhoneIdentity PhoneProductId="11846811-8212-49e9-9316-2fe90c62305b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Notepad T'</DisplayName>
+    <PublisherDisplayName>Oliver Neuschl</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="TNotepad.App">
+      <uap:VisualElements DisplayName="Notepad T" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Simple application for viewing and editing your text files." BackgroundColor="white">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="white" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation" EntryPoint="TNotepad.App">
+          <uap:FileTypeAssociation Name="notepad_t">
+            <uap:DisplayName>Notepad T</uap:DisplayName>
+            <uap:Logo>Assets\Icons\Icon128x128.png</uap:Logo>
+            <uap:SupportedFileTypes>
+              <uap:FileType ContentType="text/plain">.txt</uap:FileType>
+              <uap:FileType ContentType="text/plain">.srt</uap:FileType>
+              <uap:FileType ContentType="text/plain">.sfv</uap:FileType>
+              <uap:FileType ContentType="text/c">.c</uap:FileType>
+              <uap:FileType ContentType="text/cplusplus">.c++</uap:FileType>
+              <uap:FileType ContentType="text/cplusplus">.cpp</uap:FileType>
+              <uap:FileType ContentType="text/csharp">.cs</uap:FileType>
+              <uap:FileType ContentType="text/css">.css</uap:FileType>
+              <uap:FileType ContentType="text/html">.htm</uap:FileType>
+              <uap:FileType ContentType="text/html">.html</uap:FileType>
+              <uap:FileType ContentType="text/plain">.java</uap:FileType>
+              <uap:FileType ContentType="text/pascal">.pas</uap:FileType>
+              <uap:FileType ContentType="text/pascal">.p</uap:FileType>
+              <uap:FileType ContentType="text/lua">.lua</uap:FileType>
+              <uap:FileType ContentType="text/plain">.text</uap:FileType>
+              <uap:FileType ContentType="text/xml">.xml</uap:FileType>
+              <uap:FileType ContentType="text/nfo">.nfo</uap:FileType>
+              <uap:FileType ContentType="text/ini">.ini</uap:FileType>
+              <uap:FileType ContentType="text/log">.log</uap:FileType>
+              <uap:FileType ContentType="text/config">.cfg</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+</Package>
